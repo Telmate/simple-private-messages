@@ -56,12 +56,14 @@ module Professionalnerd # :nodoc:
         def mark_deleted(user)
           self.sender_deleted = true if self.sender == user
           self.recipient_deleted = true if self.recipient == user
-          self.sender_deleted && self.recipient_deleted ? self.destroy : save!
+          # We do not ever want to delete records. Just leave it marked as deleted. -jalessio 2013.10.22
+          # self.sender_deleted && self.recipient_deleted ? self.destroy : save!
+          save!
         end
-      end 
+      end
     end
   end
-end 
+end
 
 if defined? ActiveRecord
   ActiveRecord::Base.class_eval do
