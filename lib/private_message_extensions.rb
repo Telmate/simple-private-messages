@@ -38,8 +38,7 @@ module Professionalnerd # :nodoc:
         def read_message(id, reader)
           message = find(id, :conditions => ["sender_id = ? OR recipient_id = ?", reader, reader])
           if message.read_at.nil? && reader == message.recipient
-            message.read_at = Time.now
-            message.save!
+            message.update_attribute(:read_at, Time.now)
           end
           message
         end
